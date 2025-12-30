@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tuto GSAP</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="hero-section">
+      <h1 class="title">AirPods Pro</h1>
+      <canvas id="hero"></canvas>
+    </div>
+
+    <section class="description-section">
+      <h2 class="section-eyebrow">Control de ruido inteligente</h2>
+      <h3 class="section-headline">
+        Lo nunca<br />
+        oído.
+      </h3>
+      <div class="section-copy">
+        Presentamos
+        <strong
+          >los auriculares in-ear con la mejor cancelación activa de ruido del
+          mundo</strong
+        >
+        y el sonido envolvente más extraordinario que has escuchado nunca.
+        Diseñados con un aislamiento acústico mejorado, los AirPods Pro 3 se
+        adaptan como por arte de magia al entorno y a tus preferencias.
+      </div>
+      <div class="stats-container">
+        <div class="stat">
+          <span class="stat-caption">Elimina hasta</span>
+          <span class="stat-value">x2</span>
+          <span class="stat-caption">el ruido de fondo</span>
+        </div>
+        <div class="stat">
+          <span class="stat-caption">Hasta</span>
+          <span class="stat-value">30h</span>
+          <span class="stat-caption">de batería total</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="gallery-section">
+      <div class="gallery-container">
+        <ul class="card-set">
+          <li class="card-container">
+            <div class="card-image">
+              <img
+                src="https://www.apple.com/v/airpods-pro/q/images/overview/noise-control/gallery/noise_control_low_noise_mic__kb6kvtgc5aa2_large.jpg"
+                alt="Nuevos micrófonos"
+              />
+            </div>
+            <div class="card-caption">
+              <h3>
+                <strong>Nuevos micrófonos con nivel de ruido ultrabajo.</strong>
+              </h3>
+              <p>
+                Gracias al audio computacional avanzado, los AirPods Pro 3
+                eliminan más ruido ambiental que nunca para que tú te concentres
+                mejor (o sigas en las nubes). Y las cinco almohadillas nuevas,
+                que incluyen una opción XXS, añaden una fina capa de espuma
+                suave en la cubierta de silicona. ¿El resultado? Un increíble
+                rendimiento acústico.
+              </p>
+            </div>
+          </li>
+
+          <li class="card-container">
+            <div class="card-image">
+              <img
+                src="https://www.apple.com/v/airpods-pro/q/images/overview/noise-control/gallery/noise_control_voice_isolation__c6b9qlmdbx4y_large.jpg"
+                alt="Aislamiento de Voz"
+              />
+            </div>
+            <div class="card-caption">
+              <h3><strong>Aislamiento de Voz.</strong></h3>
+              <p>
+                Los AirPods Pro 3 reducen el ruido de fondo y aíslan las voces
+                durante las llamadas. Así da gusto hablar desde el bus o el
+                súper: se oye todo alto y claro.
+              </p>
+            </div>
+          </li>
+
+          <li class="card-container">
+            <div class="card-image">
+              <img
+                src="https://www.apple.com/v/airpods-pro/q/images/overview/noise-control/gallery/noise_control_adaptive_audio__gcfn46ubu82u_large.jpg"
+                alt="Audio adaptativo"
+              />
+            </div>
+            <div class="card-caption">
+              <h3><strong>Audio adaptativo.</strong></h3>
+              <p>
+                Los AirPods Pro 3 combinan la cancelación activa de ruido con un
+                modo de sonido ambiente de nueva generación. El resultado es una
+                acústica más natural y dinámica que se adapta de forma
+                inteligente a tu entorno para dar prioridad a lo que debes
+                escuchar en cada momento.
+              </p>
+            </div>
+          </li>
+
+          <li class="card-container">
+            <div class="card-image">
+              <img
+                src="https://www.apple.com/es/airpods-pro/images/overview/noise-control/gallery/noise_control_conversation_awareness__fl1nx541suye_large.jpg"
+                alt="Detección de Conversación"
+              />
+            </div>
+            <div class="card-caption">
+              <h3><strong>Detección de Conversación.</strong></h3>
+              <p>
+                Los AirPods Pro 3 notan si hablas con alguien que está cerca y
+                bajan automáticamente el volumen de lo que estás escuchando. Y
+                cuando terminas, lo vuelven a subir. Mágico.
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/SplitText.min.js"></script>
+
+    <script>
+      gsap.registerPlugin(SplitText, ScrollTrigger);
+
+      const lenis = new Lenis({
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smooth: true,
+        smoothTouch: false,
+      });
+      lenis.on("scroll", ScrollTrigger.update);
+
+      gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+      });
+
+      gsap.ticker.lagSmoothing(0);
+
+      const canvas = document.getElementById("hero");
+      const context = canvas.getContext("2d");
+
+      canvas.width = 1068;
+      canvas.height = 600;
+
+      const TOTAL_FRAMES = 65;
+
+      const createURL = (frame) => {
+        const id = frame.toString().padStart(4, "0");
+        return `https://www.apple.com/105/media/us/airpods-pro/2022/d2deeb8e-83eb-48ea-9721-f567cf0fffa8/anim/hero/medium/${id}.png`;
+      };
+
+      const images = Array.from({ length: TOTAL_FRAMES }, (_, i) => {
+        const img = new Image();
+        img.src = createURL(i);
+        return img;
+      });
+
+      const airpods = { frame: 0 };
+
+      gsap.set(canvas, {
+        filter: "blur(20px)",
+        scale: 0.8,
+        autoAlpha: 0,
+      });
+
+      gsap.to(canvas, {
+        filter: "blur(0px)",
+        scale: 1,
+        autoAlpha: 1,
+        duration: 1.5,
+        ease: "power2.out",
+        delay: 0.3,
+      });
+
+      const split = new SplitText(".title", { type: "chars" });
+
+      gsap.set(split.chars, {
+        opacity: 0,
+        filter: "blur(10px)",
+        scale: 0.5,
+        y: 50,
+      });
+
+      gsap.to(split.chars, {
+        opacity: 1,
+        filter: "blur(0px)",
+        scale: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "back.out(1.2)",
+        stagger: 0.05,
+      });
+
+      const heroTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".hero-section",
+          start: "top top",
+          end: "bottom top",
+          scrub: 0.5,
+          pin: false,
+        },
+      });
+
+      heroTimeline.to(
+        ".title",
+        {
+          scale: 1.5,
+          autoAlpha: 0,
+          duration: 0.3,
+        },
+        0
+      );
+
+      heroTimeline.to(
+        airpods,
+        {
+          frame: TOTAL_FRAMES - 1,
+          snap: "frame",
+          ease: "none",
+          duration: 0.7,
+          onUpdate: render,
+        },
+        0
+      );
+
+      heroTimeline.to(
+        canvas,
+        {
+          autoAlpha: 0,
+          duration: 0.3,
+        },
+        0.7
+      );
+
+      const descriptionTimeline = gsap.timeline({
+        scrollTrigger: {
+          trigger: ".description-section",
+          start: "top bottom",
+          end: "top center",
+          scrub: 1,
+        },
+      });
+
+      descriptionTimeline
+        .from(
+          ".section-eyebrow",
+          {
+            opacity: 0,
+            y: 60,
+          },
+          0
+        )
+        .from(
+          ".section-headline",
+          {
+            opacity: 0,
+            y: 80,
+          },
+          0.1
+        )
+        .from(
+          ".section-copy",
+          {
+            opacity: 0,
+            y: 60,
+          },
+          0.2
+        )
+        .from(
+          ".stat",
+          {
+            opacity: 0,
+            y: 60,
+            stagger: 0.1,
+          },
+          0.3
+        );
+
+      images[0].onload = () => render();
+
+      function render() {
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        context.drawImage(images[airpods.frame], 0, 0);
+      }
+    </script>
+  </body>
+</html>
