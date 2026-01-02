@@ -41,6 +41,22 @@
           <span class="stat-caption">de batería total</span>
         </div>
       </div>
+      <div class="sound-video-container">
+        <video
+          id="video"
+          src="https://www.apple.com/105/media/us/airpods-pro/2025/7acffb13-4adb-40b1-9393-8f1c99bc6c90/anim/noise-control/large.webm"
+          alt="video de control de ruido"
+          autoplay
+          muted
+          loop
+        ></video>
+        <p class="video-caption">
+          <strong>
+            Los AirPods Pro 3 usan audio computacional avanzado para eliminar
+            más ruido ambiental que nunca.
+          </strong>
+        </p>
+      </div>
     </section>
 
     <section class="gallery-section">
@@ -293,6 +309,19 @@
         context.clearRect(0, 0, canvas.width, canvas.height);
         context.drawImage(images[airpods.frame], 0, 0);
       }
+      const video = document.getElementById("video");
+      let counter = 0;
+
+      video.addEventListener("ended", function () {
+        counter++;
+        if (counter < 2) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+
+      video.play();
     </script>
   </body>
 </html>

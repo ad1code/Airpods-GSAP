@@ -86,6 +86,38 @@ canvas {
   line-height: 1.4;
   display: block;
 }
+.description-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 100px 5%;
+  background: linear-gradient(to bottom, #0b0b0b 0%, #1a1a1a 100%);
+  z-index: 20;
+  position: relative;
+}
+
+/* video centrado con texto dentro*/
+.sound-video-container {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 50px;
+}
+.sound-video-container video {
+  width: 100%;
+  display: flex;
+  opacity: 0.8;
+  filter: blur(2px);
+}
+.sound-video-container .video-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 1.7rem;
+  text-align: center;
+}
 
 /* Ajustes para móvil */
 @media (max-width: 768px) {
